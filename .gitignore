@@ -1,0 +1,13 @@
+# Folder view configuration files
+.DS_Store
+
+# Dependency directories
+node_modules/
+.netlify/
+
+# Coverage directory used by tools like Jest/istanbul
+coverage
+*.lcov
+
+# Build/generated output
+dist/

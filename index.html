@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Text Analyzer</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body class="d-flex flex-column h-100">
+    <div class="flex-shrink-0 py-4">
+      <div class="container text-center">
+        <div class="mb-4">
+          <h1>Text Analyzer</h1>
+          <p class="text-secondary">
+            Upload a text file to see its total word count and word frequency.
+            <br>
+            The text file is not saved anywhere&mdash;all processing is done locally.
+            <br>
+            Check out the code for Text Analyzer on <a href="">GitHub</a>.
+          </p>
+        </div>
+
+        <div id="alerts" class="d-none col-md-6 mx-auto alert alert-danger"></div>
+
+        <div id="analyze-text-input" class="col-md-6 mx-auto mb-4">
+          <div class="mb-2">
+            <label class="form-check-label font-weight-bold" for="file-to-analyze">
+              Upload a text file
+            </label>
+            <input id="file-to-analyze" class="col-md-6" type="file">
+          </div>
+
+          <input id="analyze-text" class="btn btn-primary col-md-12" type="button" value="Analyze">
+
+          <p id="status" class="d-none mt-2">
+            <strong>Progress:</strong>  <span id="current-status"></span>
+          </p>
+        </div>
+
+        <div id="results" class="d-none">
+          <p>
+            <strong>Total word count:</strong> <span id="total-word-count"></span>
+          </p>
+
+          <table id="word-frequency-table" class="table table-striped col-md-12 mx-auto">
+            <thead class="thead-dark sticky-header">
+              <tr>
+                <th id="word-column">
+                  Word &#8693;
+                </th>
+                <th id="frequency-column">
+                  Frequency &#8693;
+                </th>
+                <th id="percent-column">
+                  As Percent &#8693;
+                </th>
+              </tr>
+            </thead>
+            <tbody id="word-frequency-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+  </body>
+</html>
