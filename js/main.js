@@ -1,10 +1,12 @@
-const MatchWords = require("match-words");
 const LineNavigator = require("line-navigator");
 const Tablesort = require("tablesort");
 const $ = require("./htmlElement").HtmlElement;
 
 window.Tablesort = Tablesort;
 require("../node_modules/tablesort/src/sorts/tablesort.number");
+
+// Copied from https://github.com/regexhq/word-regex/blob/master/index.js
+const WordRegex = /[a-zA-Z0-9_'\u0392-\u03c9\u0400-\u04FF\u0027]+|[\u4E00-\u9FFF\u3400-\u4dbf\uf900-\ufaff\u3040-\u309f\uac00-\ud7af\u0400-\u04FF]+|[\u00E4\u00C4\u00E5\u00C5\u00F6\u00D6]+|[\u0531-\u0556\u0561-\u0586\u0559\u055A\u055B]+|\w+/g;
 
 const alerts = $.byId("alerts");
 const status = $.byId("status");
@@ -101,13 +103,14 @@ function createTrFromContent(...tdContent) {
 
 function analyzeText(lines) {
   for (const line of lines) {
-    const words = MatchWords(line);
+    const cleanLine = line.replace(/’|‘/g, "'");
+    const words = cleanLine.match(WordRegex);
     if (!words) {
       continue;
     }
 
     for (const word of words) {
-      const cleanedWord = removeLeadingAndTrailing(word.toLowerCase(), "_");
+      const cleanedWord = cleanWord(word);
 
       // Skip empty words and numbers
       if (!cleanedWord || !isNaN(cleanedWord)) {
@@ -127,6 +130,12 @@ function analyzeText(lines) {
 // Add commas to the number as needed
 function formatNumber(number) {
   return number.toLocaleString("en");
+}
+
+function cleanWord(word) {
+  word = word.toLowerCase();
+  word = removeLeadingAndTrailing(word, "_");
+  return word;
 }
 
 function removeLeadingAndTrailing(word, char) {
